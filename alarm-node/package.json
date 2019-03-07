@@ -1,0 +1,28 @@
+{
+  "name": "alarm-node",
+  "version": "1.0.0",
+  "description": "Alarm app for Handshake",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Erro: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seebiscuts/alarms.git"
+  },
+  "keywords": [
+    "alarm"
+  ],
+  "author": "Ruban Sellathurai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Seebiscuts/alarms/issues"
+  },
+  "homepage": "https://github.com/Seebiscuts/alarms#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}

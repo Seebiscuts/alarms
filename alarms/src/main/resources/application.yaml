@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: "jdbc:mysql://localhost:3307/alarms"
+    username: "root"
+    password: "secret"
+server:
+  port: 8090
