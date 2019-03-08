@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1001-01
+      author: ruban
+      changes:
+        - createTable:
+            tableName: alarms
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  constraints:
+                    nullable: false
+                    primarykey: true
+              - column:
+                  name: text
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+        - sql:
+            sql: insert into alarms values(1, 'this is the first alarm')
+        - sql:
+            sql: insert into alarms values(2, 'this is the second alarm')
