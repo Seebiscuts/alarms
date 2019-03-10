@@ -1,10 +1,12 @@
 package com.ruban.tech.alarms.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+
 
 @Entity
 public class Alarm {
@@ -14,11 +16,28 @@ public class Alarm {
     private String text;
     private Long upvotes;
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
+
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updated;
 
     public Long getUpvotes() {
@@ -27,14 +46,6 @@ public class Alarm {
 
     public void setUpvotes(Long upvotes) {
         this.upvotes = upvotes;
-    }
-
-    public Date getCreatedDateTimestamp() {
-        return created;
-    }
-
-    public Date getUpdateDateTimestamp() {
-        return updated;
     }
 
     public Long getId() {
@@ -51,5 +62,16 @@ public class Alarm {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "Alarm{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", upvotes=" + upvotes +
+                ", created=" + created +
+                ", updated=" + updated +
+                '}';
     }
 }

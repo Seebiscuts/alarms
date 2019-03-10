@@ -13,7 +13,7 @@ public class AlarmService {
     @Autowired
     AlarmRepository alarmRepository;
 
-    public void upvoteAlarm(Long alarmId) {
+    public Alarm upvoteAlarm(Long alarmId) {
         Optional<Alarm> alarm = alarmRepository.findById(alarmId);
         if (!alarm.isPresent()) {
             throw new IllegalArgumentException("Invalid alarm");
@@ -24,7 +24,7 @@ public class AlarmService {
                 upvotes = new Long(0);
             }
             alarmToUpdate.setUpvotes(++upvotes);
-            alarmRepository.save(alarmToUpdate);
+            return alarmRepository.save(alarmToUpdate);
         }
 
     }

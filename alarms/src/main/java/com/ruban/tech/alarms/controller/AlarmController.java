@@ -6,6 +6,7 @@ import com.ruban.tech.alarms.service.AlarmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,9 +32,9 @@ public class AlarmController {
     }
 
     @RequestMapping(value = "/alarm/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAlarm(@PathVariable(value="id") Long id) {
-        Optional<Alarm> alarmOptional =  alarmRepository.findById(id);
-        if( alarmOptional.isPresent()){
+    public ResponseEntity<Object> getAlarm(@PathVariable(value = "id") Long id) {
+        Optional<Alarm> alarmOptional = alarmRepository.findById(id);
+        if (alarmOptional.isPresent()) {
             return ResponseEntity.ok(alarmOptional.get());
         } else {
             return ResponseEntity.notFound().build();
@@ -51,15 +52,16 @@ public class AlarmController {
         return ResponseEntity.created(location).build();
     }
 
-    @RequestMapping(value = "/alarm/upvote", method = RequestMethod.PATCH)
-    public ResponseEntity<Object> upvoteAlarm(@RequestParam(value = "alarmId") long alarmId) {
-
+    @RequestMapping(value = "/alarm/upvote", method = RequestMethod.PATCH, produces = "application/json")
+    public ResponseEntity<Alarm> upvoteAlarm(@RequestParam(value = "alarmId") long alarmId) {
+        Alarm alarm;
         try {
-            alarmService.upvoteAlarm(alarmId);
+            alarm = alarmService.upvoteAlarm(alarmId);
+            return new ResponseEntity<>(alarm, HttpStatus.ACCEPTED);
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid AlarmId");
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.accepted().build();
+
     }
 }
