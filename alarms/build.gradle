@@ -5,6 +5,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply from: 'gradle/jacoco.gradle'
 
 group = 'com.ruban.tech'
 version = '0.0.1-SNAPSHOT'

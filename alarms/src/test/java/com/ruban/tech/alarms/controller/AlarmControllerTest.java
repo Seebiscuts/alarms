@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(AlarmController.class)
 public class AlarmControllerTest {
     @Autowired
+    private
     MockMvc mockMvc;
 
     @MockBean
@@ -43,7 +43,7 @@ public class AlarmControllerTest {
     @MockBean
     private AlarmRepository alarmRepository;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @Test
     public void createAlarmCreatesNewAlarmEntry() throws Exception {
@@ -86,7 +86,7 @@ public class AlarmControllerTest {
     }
 
     @Test
-    public void UpdateUpVotes() throws Exception {
+    public void updateUpVotes() throws Exception {
         Alarm alarm = createAlarm(false);
         alarm.setUpvotes(1L);
         when(alarmService.upvoteAlarm(any(Long.class))).thenReturn(alarm);
@@ -103,15 +103,13 @@ public class AlarmControllerTest {
         return gson.toJson(alarm);
     }
 
-    private Alarm createAlarm(boolean withoutId) throws Exception {
+    private Alarm createAlarm(boolean withoutId) {
         Alarm alarm = new Alarm();
         if (!withoutId) {
             alarm.setId(random.nextLong());
         }
         alarm.setText(String.format("This is %s Alarm", random.nextInt(1000)));
         alarm.setUpvotes(0L);
-        alarm.setCreated(new Date(System.currentTimeMillis()));
-        alarm.setUpdated(new Date(System.currentTimeMillis()));
         return alarm;
     }
 }

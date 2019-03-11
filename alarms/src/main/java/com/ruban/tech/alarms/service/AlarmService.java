@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class AlarmService {
     @Autowired
-    AlarmRepository alarmRepository;
+    private AlarmRepository alarmRepository;
 
     public Alarm upvoteAlarm(Long alarmId) {
         Optional<Alarm> alarm = alarmRepository.findById(alarmId);
@@ -20,8 +20,8 @@ public class AlarmService {
         } else {
             Alarm alarmToUpdate = alarm.get();
             Long upvotes = alarmToUpdate.getUpvotes();
-            if (upvotes == null ){
-                upvotes = new Long(0);
+            if (upvotes == null) {
+                upvotes = 0L;
             }
             alarmToUpdate.setUpvotes(++upvotes);
             return alarmRepository.save(alarmToUpdate);
@@ -29,7 +29,7 @@ public class AlarmService {
 
     }
 
-    public Alarm createAlarm(Alarm alarm){
+    public Alarm createAlarm(Alarm alarm) {
         Alarm savedAlarm = alarmRepository.save(alarm);
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForObject("https://bellbird.joinhandshake-internal.com/push", alarm, Alarm.class);

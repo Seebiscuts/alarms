@@ -5,11 +5,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.Locale;
 
 
 @Entity
-public class Alarm {
+public class Alarm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,19 +22,11 @@ public class Alarm {
     private Long upvotes;
 
     public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
+        return new Date(System.currentTimeMillis());
     }
 
     public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+        return new Date(System.currentTimeMillis());
     }
 
     @CreationTimestamp
@@ -57,7 +54,7 @@ public class Alarm {
     }
 
     public String getText() {
-        return text.toUpperCase();
+        return text.toUpperCase(Locale.US);
     }
 
     public void setText(String text) {

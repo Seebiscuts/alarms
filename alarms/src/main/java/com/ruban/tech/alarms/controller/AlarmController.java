@@ -4,26 +4,24 @@ import com.ruban.tech.alarms.entity.Alarm;
 import com.ruban.tech.alarms.repository.AlarmRepository;
 import com.ruban.tech.alarms.service.AlarmService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class AlarmController {
+class AlarmController {
 
     @Autowired
-    AlarmRepository alarmRepository;
+    private AlarmRepository alarmRepository;
 
     @Autowired
-    AlarmService alarmService;
+    private AlarmService alarmService;
 
     @RequestMapping(value = "/alarm", method = RequestMethod.GET)
     public List<Alarm> getAlarms() {
